@@ -1,30 +1,60 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:myportofolio_mobile/main.dart';
+import 'package:myportofolio_mobile/menu.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  /// Menjalankan aplikasi pada layar ukuran ponsel (360 x 800 logical pixel).
+  Future<void> pumpApp(WidgetTester tester) async {
+    tester.view.physicalSize = const Size(1080, 2400);
+    tester.view.devicePixelRatio = 3.0;
+    addTearDown(tester.view.reset);
     await tester.pumpWidget(const MyApp());
+  }
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('MyHomePage adalah StatelessWidget', (WidgetTester tester) async {
+    await pumpApp(tester);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    expect(tester.widget(find.byType(MyHomePage)), isA<StatelessWidget>());
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('InfoCard menampilkan identitas pemilik portofolio',
+      (WidgetTester tester) async {
+    await pumpApp(tester);
+
+    expect(find.byType(InfoCard), findsNWidgets(3));
+    expect(find.text('2506616674'), findsOneWidget);
+    expect(find.text('Michael Evan Putra Nugroho'), findsOneWidget);
+    expect(find.text('PBP C'), findsOneWidget);
+    expect(find.text('Burhan'), findsNothing);
+  });
+
+  testWidgets('Setiap ItemCard memiliki warna latar yang unik',
+      (WidgetTester tester) async {
+    await pumpApp(tester);
+
+    final cards = tester.widgetList<ItemCard>(find.byType(ItemCard)).toList();
+    final colors = cards.map((ItemCard card) => card.item.color).toSet();
+
+    expect(cards.length, greaterThanOrEqualTo(3));
+    expect(colors.length, cards.length);
+  });
+
+  testWidgets('Menekan tombol menampilkan SnackBar sesuai nama tombol',
+      (WidgetTester tester) async {
+    await pumpApp(tester);
+
+    final names = tester
+        .widgetList<ItemCard>(find.byType(ItemCard))
+        .map((ItemCard card) => card.item.name)
+        .toList();
+
+    for (final name in names) {
+      await tester.tap(find.text(name));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Kamu telah menekan tombol $name!'), findsOneWidget);
+    }
   });
 }
