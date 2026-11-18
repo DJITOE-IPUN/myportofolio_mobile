@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:myportofolio_mobile/menu.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/theme.dart';
 
 void main() {
@@ -9,7 +9,7 @@ void main() {
 /// Root widget aplikasi: mengatur judul, tema, dan halaman awal.
 ///
 /// Berkas ini hanya berisi kode bootstrap; seluruh widget halaman utama
-/// berada di `menu.dart`.
+/// berada di `screens/menu.dart`.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
