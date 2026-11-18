@@ -44,11 +44,16 @@ Aplikasi mobile Flutter untuk portofolio pribadi. Aplikasi ini adalah pasangan d
 
 ```
 lib/
-├── main.dart    # Bootstrap aplikasi: MaterialApp, tema, halaman awal
-├── menu.dart    # Halaman utama: MyHomePage, InfoCard, ItemHomepage, ItemCard
-└── theme.dart   # Palet warna Afterburner dan ThemeData aplikasi
+├── main.dart                # Bootstrap aplikasi: MaterialApp, tema, halaman awal
+├── theme.dart               # Palet warna Afterburner dan ThemeData aplikasi
+├── screens/
+│   ├── menu.dart            # Halaman utama: MyHomePage, InfoCard, ItemHomepage
+│   └── project_form.dart    # Halaman form tambah proyek (ProjectFormPage)
+└── widgets/
+    ├── left_drawer.dart     # Drawer menu navigasi (Home, Add Project)
+    └── project_card.dart    # Kartu tombol aksi (ItemCard) beserta navigasinya
 test/
-└── widget_test.dart  # Widget test halaman utama
+└── widget_test.dart         # Widget test halaman utama, navigasi, dan form
 ```
 
 ---
@@ -59,6 +64,7 @@ test/
 | --- | --- | --- |
 | Tutorial 08 | Basic Flutter | Inisialisasi proyek, pemisahan `menu.dart`, `MyHomePage` sebagai `StatelessWidget`, `InfoCard` dan `ItemCard` dengan data contoh Burhan. |
 | Tugas 7 | Basic Flutter | Identitas asli pada `InfoCard`, 4 tombol aksi dengan warna unik, SnackBar sesuai tombol, tema Afterburner, dan widget test. |
+| Tutorial 09 | Navigation, Layouts, Forms | `LeftDrawer` (Home, Add Project) dengan `pushReplacement`, `ProjectFormPage` berisi 5 field dengan validasi dan pop-up `AlertDialog`, tombol Tambah Proyek membuka form dengan `push`, refactor ke `screens/` dan `widgets/`, impor `material_ui`. |
 
 ---
 
