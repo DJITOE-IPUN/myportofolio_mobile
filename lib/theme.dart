@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Palet warna "Afterburner", disalin dari variabel CSS situs web portofolio
 /// (`static/css/afterburner.css`) agar aplikasi mobile terasa satu identitas
